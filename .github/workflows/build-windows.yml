@@ -1,0 +1,41 @@
+name: Build Windows EXE
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore
+        run: dotnet restore .\src\FastVideoDownloaderPRO\FastVideoDownloaderPRO.csproj
+
+      - name: Publish
+        run: dotnet publish .\src\FastVideoDownloaderPRO\FastVideoDownloaderPRO.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:EnableCompressionInSingleFile=true -o .\publish
+
+      - name: Prepare folders
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force .\publish\tools | Out-Null
+          New-Item -ItemType Directory -Force .\publish\downloads | Out-Null
+          New-Item -ItemType Directory -Force .\publish\logs | Out-Null
+          'Put yt-dlp.exe, ffmpeg.exe and ffprobe.exe here if they are not found automatically.' | Out-File .\publish\tools\PUT_TOOLS_HERE.txt -Encoding utf8
+          'Run FastVideoDownloaderPRO.exe. If tools are missing, click Install tools in the app.' | Out-File .\publish\README_START.txt -Encoding utf8
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: FastVideoDownloaderPRO-win-x64-portable
+          path: .\publish\

@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>FastVideoDownloaderPRO</AssemblyName>
+    <RootNamespace>FastVideoDownloaderPRO</RootNamespace>
+    <Version>1.0.0</Version>
+    <Company>Fast Video Downloader PRO</Company>
+    <Product>Fast Video Downloader PRO</Product>
+    <Description>Fast Windows video downloader powered by yt-dlp and FFmpeg.</Description>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,6 @@
+GitHub Actions автоматически кладёт сюда yt-dlp.exe, ffmpeg.exe и ffprobe.exe в готовом artifact.
+
+Если собираете вручную, положите сюда:
+- yt-dlp.exe
+- ffmpeg.exe
+- ffprobe.exe
